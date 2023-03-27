@@ -5,6 +5,16 @@
 
 using namespace std;
 
+char answer(char s1, char s2){
+    printf("? %c %c\n",s1,s2);
+    fflush(stdout);
+
+    char ans;
+    scanf(" %c",&ans);
+
+    return ans;
+}
+
 /*マージソート(部分点):N=5,Q=7のケースで条件を満たせていない*/
 void merge_sort(char* str,int L,int R){
 
@@ -70,16 +80,6 @@ void merge_sort(char* str,int L,int R){
 
     return;
 
-}
-
-char answer(char s1, char s2){
-    printf("? %c %c\n",s1,s2);
-    fflush(stdout);
-
-    char ans;
-    scanf(" %c",&ans);
-
-    return ans;
 }
 
 /*N=5 Q=7用の最小比較ソートアルゴリズム*/
