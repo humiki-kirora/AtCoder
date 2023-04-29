@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+/*配列から探索対象のインデックスを全て取得する*/
 vector<int> find_all_index(string s,char target){
     vector<int> result;
     auto current_itr = s.begin();
@@ -13,7 +15,7 @@ vector<int> find_all_index(string s,char target){
     return result;
 }
 
-vector<int> find_all_index(vector<int> s,char target){
+vector<int> find_all_index(vector<int> s,int target){
     vector<int> result;
     auto current_itr = s.begin();
 
@@ -24,6 +26,7 @@ vector<int> find_all_index(vector<int> s,char target){
 
     return result;
 }
+
 
 int main(){
 
