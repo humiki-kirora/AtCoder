@@ -3,38 +3,26 @@ using namespace std;
 
 int main(){
     //回数の取得
-    int N, M;
-    cin >> N >> M;
-    vector<set<int>> Player(N + 1);
+    int M;
+    cin >> M;
 
-    for(int i = 0; i < M; i ++){
-        int A,B;
-        cin  >> A >> B;
-        Player[A].insert(B);
+    vector<int> D(M + 1);
+    int sum = 0;
+    for(int i = 1; i <= M; i ++){
+        cin >> D[i];
+        sum += D[i];
     }
 
-    vector<bool> winners(N + 1,true);
-    for(int i = 1; i <= N; i ++){
-        for(auto &p : Player[i]){
-            winners[p] = false;
+    int center_day = sum / 2 + 1;
+
+    for(int i = 1; i <= M; i++){
+        if(center_day - D[i] > 0){
+            center_day -= D[i];
+            continue;
         }
-    }
 
-    int winner_num = 0;
-    int winner;
-    for(int i = 1; i <= N; i ++){
-        if(winners[i]){
-            winner_num ++;
-            winner = i;
-        }
+        cout << i << " " << center_day << endl;
+        break;
     }
-
-    if(winner_num != 1){
-        cout << -1 << endl;
-    }
-    else{
-        cout << winner << endl;
-    }
-    
     return 0;
 }
