@@ -1,14 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ULLong unsingned long long
+#define ULong unsingned long
+#define LLong long long
+
+int N,M,Q,K,T;
 
 int main(){
-    //回数の取得
-    int N,K;
-    cin >> N >> K;
-
-    for(int i = 0; i < N; i++){
-        
-    }
-
+    cin >> N;
     return 0;
 }
