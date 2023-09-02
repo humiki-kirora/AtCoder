@@ -4,9 +4,16 @@ using namespace std;
 #define ULong unsingned long
 #define LLong long long
 
-int N,M,Q,K,T;
+int N,M,Q,K,T,P;
 
 int main(){
-    cin >> N;
+    cin >> N >> M >> P;
+
+    int count = 0;
+    for(int i = M; i <= N; i += P){
+        count ++;
+    }
+
+    cout << count << endl;
     return 0;
 }
