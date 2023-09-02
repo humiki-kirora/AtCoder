@@ -1,40 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int N,M,H,W,Q,K,T;
+
 int main(){
-    //回数の取得
-    int N, M;
-    cin >> N >> M;
-    vector<set<int>> Player(N + 1);
+    cin >> N;
 
-    for(int i = 0; i < M; i ++){
-        int A,B;
-        cin  >> A >> B;
-        Player[A].insert(B);
-    }
+    vector<int> A(N + 1,0);
+    for(int i = 1; i <= N; i ++) cin >> A[i];
 
-    vector<bool> winners(N + 1,true);
-    for(int i = 1; i <= N; i ++){
-        for(auto &p : Player[i]){
-            winners[p] = false;
+    sort(A.begin(),A.end());
+    for(int i = 2; i <= N; i ++){
+        if(A[i] - A[i - 1] > 1){
+            cout << A[i] - 1 << endl;
+            return 0;
         }
     }
 
-    int winner_num = 0;
-    int winner;
-    for(int i = 1; i <= N; i ++){
-        if(winners[i]){
-            winner_num ++;
-            winner = i;
-        }
-    }
-
-    if(winner_num != 1){
-        cout << -1 << endl;
-    }
-    else{
-        cout << winner << endl;
-    }
-    
     return 0;
 }

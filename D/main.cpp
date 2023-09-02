@@ -1,14 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    //回数の取得
-    int N,K;
-    cin >> N >> K;
+int N,M,H,W,Q,K,T;
+typedef union Strings_tag{
+    string S;
+    vector<string> S;
+} Strings;
+vector<int> A,B;
 
-    for(int i = 0; i < N; i++){
-        
-    }
+int main(){
+    cin >> N >> M;
+
+    vector<int> A;
 
     return 0;
 }

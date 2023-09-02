@@ -1,23 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    int N;
-    cin >> N;
-    vector<long long> A(N);
-    long long sum = 0;
-    for(auto & a : A) {cin >> a; sum += a;}
+int N,M,H,W,Q,K,T;
+int ans = 0;
+void calc_max_length(vector<vector<pair<int,int>>>& graph, int current_pos, int sum,vector<bool> &check){
+    ans = max(sum,ans);
+    
+    check[current_pos] = true;
+    for(int i = 0; i < graph[current_pos].size(); i ++){
+        if(!check[graph[current_pos][i].first]) calc_max_length(graph,
+                                                                graph[current_pos][i].first,
+                                                                sum + graph[current_pos][i].second,
+                                                                check);
+    }
+    check[current_pos] = false;
+}
 
-    long long mod = sum % N;
-    long long divs = sum / N;
-    
-    sort(A.begin(),A.end());
-    long long ans = 0;
-    for(int i = 0; i < N - mod; i ++){ans += abs(A[i] - divs);}
-    for(int i = N - mod; i < N; i ++){ans += abs(A[i] - (divs + 1));}
-    
-    cout << ans / 2 << endl;
-    
-    
+int main(){
+    cin >> N >> M;
+
+    vector<vector<pair<int,int>>> g(N + 1);
+    vector<bool> check(M + 1,false);
+    for(int i = 0; i < M; i ++){
+        int A,B,C;
+        cin >> A >> B >> C;
+        g[A].push_back(pair<int,int>(B,C));
+        g[B].push_back(pair<int,int>(A,C));
+    }
+
+    for(int i = 1; i <= N; i ++){
+        calc_max_length(g,i,0,check);
+    }
+
+    cout << ans << endl;
     return 0;
 }

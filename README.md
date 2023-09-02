@@ -13,32 +13,18 @@ C++
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    //回数の取得
-    int N;
-    cin >> N;
-
-    //文字列の取得
+int N,M,H,W,Q,K,T;
+typedef union Strings_tag{
     string S;
-    cin >> S;
+    vector<string> S;
+} Strings;
+vector<int> A,B;
 
-    //配列の取得
-    //1次元
-    vector<int> A(N);
-    for(auto & a : A) cin >> a;
+int main(){
+    cin >> N >> M;
 
-    //2次元(数値)
-    vector<vector<int>> B(N,vector<int>(N,0));
-    for(auto & b : B)
-        for(auto & e : b)
-            cin >> e;
+    vector<int> A;
 
-    //2次元(文字列)
-    vector<string> Ss;
-    for(auto & s : Ss) cin >> s;
-
-    //答えの出力
-    cout << "Yes" << endl;
     return 0;
 }
 ```

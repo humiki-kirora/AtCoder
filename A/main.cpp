@@ -1,36 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int N,M,H,W,Q,K,T,X;
+
 int main(){
-    //回数の取得
-    int N;
-    cin >> N;
+    cin >> N >> H >> X;
+    vector<int> P(N + 1);
+    for(int i = 1; i <= N; i ++) cin >> P[i];
 
-    vector<int> P(N);
-    for(auto & p : P) cin >> p;
-
-    int max = 0;
-    bool check_double = false;
-    for(int i = 0; i < P.size(); i ++){
-        if(max < P[i]){
-            max = P[i];
-            check_double = false;
-        }
-        else if(max == P[i]){
-            check_double = true;
+    for(int i = 1; i <= N; i ++){
+        if(H + P[i] >= X){
+            cout << i << endl;
+            return 0;
         }
     }
 
-    if(max == P[0]) {
-        if(check_double){
-          cout << 1 << endl;
-        }
-        else{
-            cout << 0 << endl;
-        }
-        return 0;
-    }
-
-    cout << max - P[0] + 1 << endl;
     return 0;
 }
