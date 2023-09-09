@@ -7,6 +7,13 @@ using namespace std;
 int N,M,Q,K,T;
 
 int main(){
-    cin >> N;
+    cin >> N >> K;
+    string S;
+    cin >>S;
+
+    S[K - 1] = S[K - 1] + 32;
+
+    cout << S << endl;
+
     return 0;
 }
