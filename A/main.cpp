@@ -7,6 +7,11 @@ using namespace std;
 int N,M,Q,K,T;
 
 int main(){
-    cin >> N;
+    int A,B;
+    cin >> A >> B;
+
+    for(int i = 1; i <= 3; i ++){
+        if(A != i && B != i) {cout << i << endl; return 0;}
+    }
     return 0;
 }
