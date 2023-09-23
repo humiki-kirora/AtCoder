@@ -7,6 +7,8 @@ using namespace std;
 int N,M,Q,K,T;
 
 int main(){
-    cin >> N;
+    long long A,B;
+    cin >> A >> B;
+    cout << int(pow(A,B) + pow(B,A)) << endl;
     return 0;
 }
