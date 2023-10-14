@@ -6,7 +6,20 @@ using namespace std;
 
 int N,M,Q,K,T;
 
+
+
 int main(){
-    cin >> N;
+
+    vector<vector<string>> poly(3,vector<string>(4));
+    for(int i = 0; i < 3; i ++){
+        for(int j = 0; j < 4; j ++) cin >> poly[i][j];
+    }
+
+    bool map[4][4];
+    for(int i = 0; i < 3; i ++){
+        for(int j = 0; j < 4; j ++) cin >> poly[i][j];
+    }
+
+
     return 0;
 }
