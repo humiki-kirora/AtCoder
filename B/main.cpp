@@ -4,9 +4,23 @@ using namespace std;
 #define ULong unsigned long
 #define LLong long long
 
-int N,M,Q,K,T;
+ULLong N,M,Q,K,T;
 
 int main(){
     cin >> N;
+
+    while(N % 3 == 0){
+        N /= 3;
+    }
+
+    while(N % 2 == 0){
+        N /= 2;
+    }
+
+    if(N != 1){
+        cout << "No" << endl;
+    }
+    else cout << "Yes" << endl;
+
     return 0;
 }
