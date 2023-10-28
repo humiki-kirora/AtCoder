@@ -4,9 +4,12 @@ using namespace std;
 #define ULong unsingned long
 #define LLong long long
 
-int N,M,Q,K,T;
+int N,M,Q,K;
 
 int main(){
-    cin >> N;
+    string S,T;
+    cin >> S >> T;
+
+    cout << S << " " << "san" << endl;
     return 0;
 }
