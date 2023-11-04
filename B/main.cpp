@@ -8,5 +8,15 @@ int N,M,Q,K,T;
 
 int main(){
     cin >> N;
+
+    for(int i = N; i <= 999; i ++){
+        int ans = i % 10;
+        int prod = (i / 100) * ((i / 10) % 10);
+        if(ans == prod){
+            cout << i << endl;
+            return 0;
+        }
+    }
+
     return 0;
 }
