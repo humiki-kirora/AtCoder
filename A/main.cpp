@@ -7,6 +7,12 @@ using namespace std;
 int N,M,Q,K,T;
 
 int main(){
-    cin >> N;
+    string S;
+    cin >> S;
+
+    for(int i = 0; i < S.size() - 1; i ++){
+        cout << S[i] << " ";
+    }
+    cout << S.back() << endl;
     return 0;
 }
