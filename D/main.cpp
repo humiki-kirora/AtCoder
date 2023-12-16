@@ -24,6 +24,7 @@ typedef vector<vi> vvi;
 
 typedef vector<vu64> vvu64;
 #define INTI_VVU64(N) vvu64(N,vu64(N,0))
+#define INTI_VVU64_HW(H,W) vvu64(H,vu64(W,0))
 
 
 /***input template***/
@@ -35,7 +36,7 @@ void read_v(vector<T> & args){
 template<class T>
 void read_vv(vector<vector<T>> & args){
     for(int i = 0; i < args.size(); i ++)
-        for(int j = 0; j < args.size(); j ++) cin >> args[i][j];
+        for(int j = 0; j < args[i].size(); j ++) cin >> args[i][j];
 }
 
 /***output templete***/
@@ -69,22 +70,87 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N,M,K,Q;
-    cin >> N;
+    u64 H,W;
+    cin >> H >> W;
 
-    auto A = INTI_VU64(N);
-    read_v(A);
+    auto A = INTI_VVU64_HW(H,W);
+    read_vv(A);
 
-    auto B = INTI_VVU64(N);
+    auto B = INTI_VVU64_HW(H,W);
     read_vv(B);
 
-    auto S = INTI_VS(N);
-    read_v(S);
+    // 0.探索用setの作成
+    vector<set<int>> A_rows(H);
+    vector<set<int>> B_rows(H);
+    vector<set<int>> A_cols(W);
+    vector<set<int>> B_cols(W);
 
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+    for(int i = 0; i  < H; i ++){
+        for(int j = 0; j < W; j ++){
+            A_rows[i].insert(A[i][j]);
+            B_rows[i].insert(B[i][j]);
+            A_cols[j].insert(A[i][j]);
+            B_cols[j].insert(B[i][j]);
+        }
+    }
+
+    auto row_pair = INTI_VI(H);
+    auto col_pair = INTI_VI(W);
+    vector<bool> checker(H,false);
+    for(int i = 0; i  < H; i ++){
+        for(int j = 0; j < H; j ++){
+            if(checker[i]) continue;
+            if(B_rows[i] == A_rows[j]){
+                row_pair[i] = j;
+                checker[i] = true;
+                break;
+            }
+
+        }
+    }
+
+    if(find(checker.begin(),checker.end(),false) != checker.end()){
+        cout <<  -1 << endl;
+        return;
+    }
+
+    checker = vector<bool>(H,false);
+    for(int i = 0; i  < W; i ++){
+        for(int j = 0; j < W; j ++){
+            if(checker[i]) continue;
+            if(B_cols[i] == A_cols[j]){
+                col_pair[i] = j;
+                checker[i] = true;
+                break;
+            }
+        }
+    }
+
+    if(find(checker.begin(),checker.end(),false) != checker.end()){
+        cout <<  -1 << endl;
+        return;       
+    }
+
+    int swap_count = 0;
+    for(int i = 0; i  < H; i ++){
+        int dist = distance(row_pair.begin(),find(row_pair.begin(),row_pair.end(),i));
+        for(int j = dist; j > i; j --){
+            row_pair[j] = row_pair[j - 1];
+            swap_count ++;
+        }
+        row_pair[i] = i;
+    }
+
+    for(int i = 0; i  < H; i ++){
+        int dist = distance(col_pair.begin(),find(col_pair.begin(),col_pair.end(),i));
+        for(int j = dist; j > i; j --){
+            col_pair[j] = col_pair[j - 1];
+            swap_count ++;
+        }
+        col_pair[i] = i;
+    }
+
+    ANSWER(swap_count);
 }
 
 int main(){

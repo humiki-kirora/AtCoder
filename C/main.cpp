@@ -69,22 +69,37 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N,M,K,Q;
-    cin >> N;
+    u64 N,M;
+    cin >> N >> M;
 
-    auto A = INTI_VU64(N);
-    read_v(A);
+    string S;
+    cin >> S;
 
-    auto B = INTI_VVU64(N);
-    read_vv(B);
+    int max_T = 0;
 
-    auto S = INTI_VS(N);
-    read_v(S);
+    auto current_itr = S.begin();
+    do{
+        auto next_itr = find(current_itr,S.end(),'0');
+        int logo = count(current_itr,next_itr,'2');
+        int length = distance(current_itr,next_itr);
 
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+        //cout << length << logo << endl;
+        int ans = 0;
+        ans += logo;
+        if(M < length - logo){
+            ans += length - logo - M;
+        }
+
+        if(max_T < ans){
+            max_T = ans;
+        }
+
+        if(next_itr == S.end()) break;
+        current_itr = next_itr + 1;
+
+    } while(current_itr != S.end());
+
+    ANSWER(max_T);
 }
 
 int main(){
