@@ -69,22 +69,49 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N,M,K,Q;
-    cin >> N;
+    long long A,M,L,R;
+    cin >> A >> M >> L >> R;
 
-    auto A = INTI_VU64(N);
-    read_v(A);
+    long long ans = 0;
 
-    auto B = INTI_VVU64(N);
-    read_vv(B);
+    if(L < A && A < R){
+        long long t = (A - L) / M;
+        ans += t;
 
-    auto S = INTI_VS(N);
-    read_v(S);
+        t = (R - A) / M;
+        ans += t;
+        ans ++;
+    }
+    else if(R < A){
+        long long t = (A - R) / M;
+        ans -= t + 1;
 
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+        t = (A - L) / M;
+        ans += t + 1;
+        if((A - R) % M == 0){
+            ans ++;
+        }
+    }
+    else if(A < L){
+        long long t = (L - A) / M;
+        ans -= t + 1;
+
+        t = (R - A) / M;
+        ans += t + 1;
+        if((L - A) % M == 0){
+            ans ++;
+        }
+    }
+    else if(R == A){
+        long long t = (A - L) / M;
+        ans += t + 1;
+    }
+    else if(L == A){
+        long long t = (R - A) / M;
+        ans += t + 1;
+    }
+
+    ANSWER(ans);
 }
 
 int main(){
