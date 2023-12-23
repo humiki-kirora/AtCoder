@@ -68,23 +68,107 @@ void YESorNO(bool ans){
     else cout << "No" << endl;
 }
 
+class Union_Find{
+    vector<int> parent;
+    vector<int> size;
+    int num;
+
+    public:
+    Union_Find(int N){
+        num = N;
+        parent = vector<int>(N + 1, -1);
+        size = vector<int>(N + 1,1);
+    }
+
+    void init(){
+        for(int i = 0; i <= num; i ++){
+            parent[i] = -1;
+            size[i] = 1;
+        }
+    }
+
+    int root(int x){
+        while(true){
+            if(parent[x] == -1) break;
+            x = parent[x];
+        }
+        return x;
+    }
+
+    void integrate(int u,int v){
+        int root_u = root(u);
+        int root_v = root(v);
+        if(root_u == root_v) return;
+        if(size[root_u] < size[root_v]){
+            parent[root_u] = root_v;
+            size[root_v] = size[root_v] + size[root_u];
+        }
+        else{
+            parent[root_v] = root_u;
+            size[root_u] = size[root_v] + size[root_u];
+        }
+        return;
+    }
+
+    bool equal(int u,int v){
+        return root(u) == root(v); 
+    }
+
+};
+
+void min_serch(int N, vector<set<int>> & graph, int & num){
+    if(graph[N].size() == 0){
+        num ++;
+        return;
+    }
+    else{
+        for(auto g : graph[N]){
+            graph[g].erase(N);
+            min_serch(g,graph,num);
+        }
+        num ++;
+    }
+    return;
+}
+
 void solve(){
     u64 N,M,K,Q;
     cin >> N;
 
-    auto A = INTI_VU64(N);
-    read_v(A);
+    vector<pair<int,int>> v(N);
+    for(int i = 0; i < N - 1; i ++) cin >> v[i].first >> v[i].second;
 
-    auto B = INTI_VVU64(N);
-    read_vv(B);
+    vector<set<int>> graph(N);
+    for(int i = 0; i < N - 1; i ++){
+        graph[v[i].first - 1].insert(v[i].second - 1);
+        graph[v[i].second - 1].insert(v[i].first - 1);
+    }
 
-    auto S = INTI_VS(N);
-    read_v(S);
 
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+    int min_num = INT32_MAX;
+    if(graph[0].size() == 1){
+        ANSWER(1);
+        return ;
+    }
+
+    vector<int> answers(graph[0].size(),0);
+
+    int i = 0;
+    for(auto g : graph[0]){
+        int num = 0;
+        graph[g].erase(0);
+        min_serch(g,graph,num);
+        answers[i] = num;
+        i++;
+    }
+
+    sort(answers.begin(),answers.end());
+    int ans = 0;
+    for(int i = 0; i < answers.size() - 1; i ++){
+        ans += answers[i];
+    }
+
+    ANSWER(ans + 1);
 }
 
 int main(){

@@ -68,23 +68,86 @@ void YESorNO(bool ans){
     else cout << "No" << endl;
 }
 
+int calc_pattern1(int i){
+    if(i == 1){
+        return 1;
+    }
+    else if(i == 2){
+        return 4;
+    }
+    else{
+        int pattern = 0;
+        pattern += i;
+        pattern += i * (i - 1);
+        pattern += (i * (i - 1) * (i - 2)) / 6; 
+        return pattern;
+    }
+}
+
+int calc_pattern2(int i){
+    if(i == 0){
+        return 0;
+    }
+    if(i == 1){
+        return 1;
+    }
+    else{
+        int pattern = 0;
+        pattern += i;
+        pattern += i * (i - 1) / 2;
+        return pattern;
+    }
+}
+
 void solve(){
-    u64 N,M,K,Q;
+    u64 N;
     cin >> N;
 
-    auto A = INTI_VU64(N);
-    read_v(A);
+    int i = 1;
+    u64 a = 0,b = 0,c = 0;
 
-    auto B = INTI_VVU64(N);
-    read_vv(B);
+    if(N == 1){
+        ANSWER(3);
+        return;
+    }
 
-    auto S = INTI_VS(N);
-    read_v(S);
+    while(true){
+        if(calc_pattern1(i) >= N){
+            break;
+        }
+        else{
+            i ++;
+        }
+    }
 
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+
+    for(int j = 0; j < i; j ++){
+        a += pow(10,j);
+    }
+
+    int tmpN = N - calc_pattern1(i - 1);
+
+    i = 1;
+    while(true){
+        if(calc_pattern2(i)>= tmpN){
+            break;
+        }
+        else{
+            i ++;
+        }
+    }
+
+    for(int j = 0; j < i; j ++){
+        b += pow(10,j);
+    }
+
+    tmpN = tmpN - calc_pattern2(i - 1);
+
+    for(int j = 0; j < tmpN; j ++){
+        c += pow(10,j);
+    }
+
+    ANSWER(a + b + c);
 }
 
 int main(){
