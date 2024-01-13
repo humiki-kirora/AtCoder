@@ -72,19 +72,89 @@ void solve(){
     u64 N,M,K,Q;
     cin >> N;
 
-    auto A = INTI_VU64(N);
-    read_v(A);
+    auto P = INTI_VVU64(N);
 
-    auto B = INTI_VVU64(N);
-    read_vv(B);
+    int c = 1;
+    auto current_p = pair<int,int>(0,0);
+    int direction = 0;
+    while(c < N * N){
+        P[current_p.second][current_p.first] = c;
 
-    auto S = INTI_VS(N);
-    read_v(S);
+        c++;
+        switch (direction)
+        {
+        case 0:
+            if(current_p.first + 1 == N){
+                direction = 1;
+                current_p.second ++;
+            }
+            else if(P[current_p.second][current_p.first + 1] != 0){
+                direction = 1;
+                current_p.second ++;
+            }
+            else{
+                current_p.first++;
+            }
+            break;
+        case 1:
+            if(current_p.second + 1 == N){
+                direction = 2;
+                current_p.first --;
+            }
+            else if(P[current_p.second + 1][current_p.first] != 0){
+                direction = 2;
+                current_p.first --;
+            }
+            else{
+                current_p.second ++;
+            }
+            break;
+        case 2:
+            if(current_p.first - 1 < 0){
+                direction = 3;
+                current_p.second --;
+            }
+            else if(P[current_p.second][current_p.first - 1] != 0){
+                direction = 3;
+                current_p.second --;
+            }
+            else{
+                current_p.first --;
+            }
+            break;
+        case 3:
+            if(P[current_p.second - 1][current_p.first] != 0){
+                direction = 0;
+                current_p.first ++;
+            }
+            else{
+                current_p.second --;
+            }
+            break;
+        default:
+            break;
+        }
+    }
 
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+    for(int i = 0; i < N; i ++){
+        if(i == ((N + 1) / 2 - 1)){
+            for(int j = 0; j < N - 1; j ++){
+                if(j == ((N + 1) / 2 - 1)){
+                    ANSWER("T",false);
+                }
+                else{
+                    ANSWER(P[i][j],false);
+                }
+            }
+            ANSWER(P[i].back());
+        }
+        else{
+            for(int j = 0; j < N - 1; j ++){
+                ANSWER(P[i][j],false);
+            }
+            ANSWER(P[i].back());
+        }
+    }
 }
 
 int main(){

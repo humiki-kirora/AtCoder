@@ -70,21 +70,8 @@ void YESorNO(bool ans){
 
 void solve(){
     u64 N,M,K,Q;
-    cin >> N;
-
-    auto A = INTI_VU64(N);
-    read_v(A);
-
-    auto B = INTI_VVU64(N);
-    read_vv(B);
-
-    auto S = INTI_VS(N);
-    read_v(S);
-
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+    cin >> N >> M;
+    
 }
 
 int main(){

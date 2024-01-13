@@ -69,22 +69,57 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N,M,K,Q;
-    cin >> N;
+    u64 N,Q;
+    cin >> N >> Q;
 
-    auto A = INTI_VU64(N);
-    read_v(A);
+    auto dragon = vector<pair<int,int>>();
+    dragon.push_back(pair<int,int>(1,0));
 
-    auto B = INTI_VVU64(N);
-    read_vv(B);
+    for(int q = 0; q < Q; q ++){
+        int f_q;
+        cin >> f_q;
 
-    auto S = INTI_VS(N);
-    read_v(S);
+        if(f_q == 1){
+            char s_q;
+            cin >> s_q;
+            int next_x,next_y;
 
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+            if(s_q == 'R'){
+                next_x = dragon.back().first + 1;
+                next_y = dragon.back().second;
+            }
+            else if(s_q == 'L'){
+                next_x = dragon.back().first - 1;
+                next_y = dragon.back().second;
+            }
+            else if(s_q == 'U'){
+                next_x = dragon.back().first;
+                next_y = dragon.back().second + 1;
+            }
+            else{
+                next_x = dragon.back().first;
+                next_y = dragon.back().second - 1;
+            }
+            dragon.push_back(pair<int,int>(next_x,next_y));
+
+        }
+        else{
+            int s_q;
+            cin >> s_q;
+            pair<int,int> place(s_q,0);
+            int moves = dragon.size();
+            if(moves - 1 < s_q){
+                ANSWER(place.first - (moves - 1),false);
+                ANSWER(place.second);
+            }
+            else{
+                int m = place.first - 1;
+                ANSWER(dragon[(moves - 1) - m].first,false);
+                ANSWER(dragon[(moves - 1) - m].second);
+            }
+        }
+    }
+
 }
 
 int main(){
