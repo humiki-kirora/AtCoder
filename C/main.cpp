@@ -72,19 +72,23 @@ void solve(){
     u64 N,M,K,Q;
     cin >> N;
 
-    auto A = INTI_VU64(N);
-    read_v(A);
+    vector<u64> ans;
 
-    auto B = INTI_VVU64(N);
-    read_vv(B);
+    u64 prevN;
+    N = N - 1;
+    do{
+        ans.push_back(N % 5);
+        prevN = N;
+        N = N / 5;
+    }while(N != 0);
 
-    auto S = INTI_VS(N);
-    read_v(S);
+    u64 answer = 0;
+    u64 x = 1;
+    for(u64 i = 0; i < ans.size(); i ++,x *= 10){
+        answer += ans[i] * 2 * x;
+    }
 
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+    ANSWER(answer);
 }
 
 int main(){

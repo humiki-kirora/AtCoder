@@ -72,19 +72,13 @@ void solve(){
     u64 N,M,K,Q;
     cin >> N;
 
-    auto A = INTI_VU64(N);
-    read_v(A);
+    int ans = 0;
+    while(N % 2 == 0){
+        ans ++;
+        N = (N >> 1);
+    }
 
-    auto B = INTI_VVU64(N);
-    read_vv(B);
-
-    auto S = INTI_VS(N);
-    read_v(S);
-
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+    ANSWER(ans);
 }
 
 int main(){
