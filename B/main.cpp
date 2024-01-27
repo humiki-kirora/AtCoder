@@ -69,22 +69,29 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N,M,K,Q;
-    cin >> N;
+    string S;
+    cin >> S;
 
-    auto A = INTI_VU64(N);
-    read_v(A);
+    map<char,int> m;
+    for(char i = 'a'; i <= 'z'; i ++){
+        m[i] = 0;
+    }
 
-    auto B = INTI_VVU64(N);
-    read_vv(B);
+    for(int i = 0; i < S.size(); i ++){
+        m[S[i]] ++; 
+    }
 
-    auto S = INTI_VS(N);
-    read_v(S);
+    char ans = 'a';
+    int max_v = 0;
+    for(char i = 'a'; i <= 'z'; i ++){
+        if(m[i] > max_v){
+            ans = i;
+            max_v = m[i];
+        }
+    }
 
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+    ANSWER(ans);
+
 }
 
 int main(){

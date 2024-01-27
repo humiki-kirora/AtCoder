@@ -69,22 +69,35 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N,M,K,Q;
+    u64 N;
     cin >> N;
 
-    auto A = INTI_VU64(N);
+    auto Q = INTI_VI(N);
+    auto A = INTI_VI(N);
+    auto B = INTI_VI(N);
+    read_v(Q);
     read_v(A);
+    read_v(B);
 
-    auto B = INTI_VVU64(N);
-    read_vv(B);
+    int min_a = INT32_MAX;
+    int min_b = INT32_MAX;
 
-    auto S = INTI_VS(N);
-    read_v(S);
+    for(int i = 0; i < N; i ++){
+        if(A[i] != 0) min_a = min(min_a,Q[i] / A[i]);
+        if(B[i] != 0) min_b = min(min_b,Q[i] / B[i]);
+    }
 
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
+    int ans = max(min_a,min_b);
+    
+    for(int a = 0; a <= min_a; a ++){
+        int min_v = INT32_MAX;
+        for(int i = 0; i < N; i ++){
+            if(B[i] != 0) min_v = min(min_v,(Q[i] - A[i] * a) / B[i]);
+        }
+        ans = max(ans,min_v + a);
+    }
+
+    ANSWER(ans);
 }
 
 int main(){
