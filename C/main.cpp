@@ -20,10 +20,10 @@ typedef vector<string> vs;
 #define INTI_VS(N) vs(N)
 
 typedef vector<vi> vvi;
-#define INTI_VVI(N) vvi(N,vi(N,0))
+#define INTI_VVI(H,W) vvi(H,vi(W,0))
 
 typedef vector<vu64> vvu64;
-#define INTI_VVU64(N) vvu64(N,vu64(N,0))
+#define INTI_VVU64(H,W) vvu64(H,vu64(W,0))
 
 
 /***input template***/
@@ -35,7 +35,7 @@ void read_v(vector<T> & args){
 template<class T>
 void read_vv(vector<vector<T>> & args){
     for(int i = 0; i < args.size(); i ++)
-        for(int j = 0; j < args.size(); j ++) cin >> args[i][j];
+        for(int j = 0; j < args[0].size(); j ++) cin >> args[i][j];
 }
 
 /***output templete***/
@@ -56,7 +56,7 @@ void ANSWER_ARRAY(vector<T> ans){
 template<class T>
 void ANSWER_ARRAYS(vector<vector<T>> ans){
     for(int i = 0; i < ans.size(); i ++){
-        for(int j = 0; j < ans.size() - 1; j ++){
+        for(int j = 0; j < ans[0].size() - 1; j ++){
             ANSWER(ans[i][j],false);
         }
         ANSWER(ans[i].back());
@@ -69,22 +69,8 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N,M,K,Q;
+    u64 N;
     cin >> N;
-
-    auto A = INTI_VU64(N);
-    read_v(A);
-
-    auto B = INTI_VVU64(N);
-    read_vv(B);
-
-    auto S = INTI_VS(N);
-    read_v(S);
-
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
 }
 
 int main(){
