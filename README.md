@@ -6,101 +6,23 @@ AtCoderの各コンテストについての回答・解説を保存しておく�
 - 言語は基本的にC,C++,pythonのいずれか
 - 学習が完了したコンテストについてはタグを打つ予定 
   
-# テンプレート
+# テクニック・注意点メモ
+問題を解いていく上で参考になった・注意が必要だった点で良くひっかかりそうなものをメモ
 
-C++
+## mapの扱い方
+
 ```C++
-#include <bits/stdc++.h>
-using namespace std;
+// 初期化
+map<int,int> m;
 
-/***type templete***/
-#define ll long long
-#define u32 unsigned int
-#define u64 unsigned long long
-#define d64 double
-#define pii pair<int,int>
-#define pci pair<char,int>
+// 新しいデータの挿入
+map[1] = 1; // 新しく1のkey値が生成されて、1が代入される
 
-/***vector templete ***/
-typedef vector<int> vi;
-#define INTI_VI(N) vi(N,0)
-
-typedef vector<u64> vu64;
-#define INTI_VU64(N) vu64(N,0)
-
-typedef vector<string> vs;
-#define INTI_VS(N) vs(N)
-
-typedef vector<vi> vvi;
-#define INTI_VVI(N) vvi(N,vi(N,0))
-
-typedef vector<vu64> vvu64;
-#define INTI_VVU64(N) vvu64(N,vu64(N,0))
-
-
-/***input template***/
-template<class T>
-void read_v(vector<T> & args){
-    for(int i = 0; i < args.size(); i ++) cin >> args[i];
+// keyのカウントなどの場合は存在確認をする
+if(map.find(i) == map.end()){
+    map[i] = 1;
 }
-
-template<class T>
-void read_vv(vector<vector<T>> & args){
-    for(int i = 0; i < args.size(); i ++)
-        for(int j = 0; j < args.size(); j ++) cin >> args[i][j];
-}
-
-/***output templete***/
-template<class T>
-void ANSWER(T ans, bool end = true){
-    if(end) cout << ans << endl;
-    else cout << ans << " ";
-}
-
-template<class T>
-void ANSWER_ARRAY(vector<T> ans){
-    for(int i = 0; i < ans.size() - 1; i ++){
-        ANSWER(ans[i],false);
-    }
-    ANSWER(ans.back());
-}
-
-template<class T>
-void ANSWER_ARRAYS(vector<vector<T>> ans){
-    for(int i = 0; i < ans.size(); i ++){
-        for(int j = 0; j < ans.size() - 1; j ++){
-            ANSWER(ans[i][j],false);
-        }
-        ANSWER(ans[i].back());
-    }
-}
-
-void YESorNO(bool ans){
-    if(ans) cout << "Yes" << endl;
-    else cout << "No" << endl;
-}
-
-void solve(){
-    u64 N,M,K,Q;
-    cin >> N;
-
-    auto A = INTI_VU64(N);
-    read_v(A);
-
-    auto B = INTI_VVU64(N);
-    read_vv(B);
-
-    auto S = INTI_VS(N);
-    read_v(S);
-
-    ANSWER_ARRAY(A);
-    ANSWER_ARRAYS(B);
-    ANSWER_ARRAY(S);
-    YESorNO(true);
-}
-
-int main(){
-    solve();
-    return 0;
+else{
+    map[i] ++;
 }
 ```
