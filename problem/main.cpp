@@ -68,37 +68,38 @@ void YESorNO(bool ans){
     else cout << "No" << endl;
 }
 
+void search_max(map<int,vector<int>> & g,map<int,bool> & checks, int i,int & ans){
+    if(!checks[i]) return;
+    else checks[i] = false;
+
+    if(ans < i){
+        ans = i;
+    }
+
+    for(auto j = 0; j < g[i].size(); j ++){
+        search_max(g,checks,g[i][j],ans);
+    }
+}
+
 void solve(){
-    u64 N;
+    int N;
     cin >> N;
-    auto A = INTI_VI(N);
-    read_v(A);
-
-    vector<vector<int>> g(N + 1);
-
-    set<int> start_points;
+    map<int,bool> check;
+    map<int,vector<int>> g;
     for(int i = 0; i < N; i ++){
-        g[i + 1].push_back(A[i]);
+        int a,b;
+        cin >> a >> b;
+        g[a].push_back(b);
+        g[b].push_back(a);
+        check[a] = true;
+        check[b] = true;
+        
     }
+    check[1] = true;
 
-    vector<bool> check(N + 1,true);
-    int current_pos = 1;
-    check[current_pos] = false;
-    while(check[g[current_pos][0]]){
-        current_pos = g[current_pos][0];
-        check[current_pos] = false;
-    }
-
-    int end = current_pos;
-    vector<int> ans;
-    ans.push_back(current_pos);
-    while(end != g[current_pos][0]){
-        current_pos = g[current_pos][0];
-        ans.push_back(current_pos);
-    }
-
-    ANSWER(ans.size());
-    ANSWER_ARRAY(ans);
+    int ans = 0;
+    search_max(g,check,1,ans);
+    ANSWER(ans);
 }
 
 int main(){
