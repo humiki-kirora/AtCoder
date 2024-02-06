@@ -69,8 +69,11 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N;
-    cin >> N;
+    string S;
+    cin >> S;
+
+    auto itr = S.rfind('.');
+    cout <<S.substr(itr + 1,S.size() - itr) << endl; 
 }
 
 int main(){

@@ -71,6 +71,86 @@ void YESorNO(bool ans){
 void solve(){
     u64 N;
     cin >> N;
+
+    auto S = INTI_VS(N);
+    read_v(S);
+
+    pair<int,int> ps[2];
+    int c = 0;
+    for(int i = 0; i < N; i ++){
+        for(int j = 0; j < N; j ++){
+            if(S[i][j] == 'P'){
+                ps[c] = make_pair(i,j);
+                c++;
+            }
+        }
+    }
+
+    bool check_root = false;
+    auto map = INTI_VVI(N,N);
+    queue<pair<int,int>> q;
+    q.push(ps[0]);
+    map[ps[0].first][ps[0].second] = 1;
+
+
+    while(!q.empty()){
+        auto p = q.front();
+        int d = map[p.first][p.second];
+
+        if(p.second - 1 >= 0 && map[p.first][p.second - 1] == 0){
+            if(S[p.first][p.second - 1] == '#'){
+                map[p.first][p.second - 1] = -1;
+            }
+            else{
+                map[p.first][p.second - 1] = d + 1;
+                q.push(make_pair(p.first,p.second - 1));
+            }
+        }
+
+        if(p.first - 1 >= 0 && map[p.first - 1][p.second] == 0){
+            if(S[p.first - 1][p.second] == '#'){
+                map[p.first - 1][p.second] = -1;
+            }
+            else{
+                map[p.first - 1][p.second] = d + 1;
+                q.push(make_pair(p.first - 1,p.second));
+            }
+        }
+
+        if(p.second + 1 < N && map[p.first][p.second + 1] == 0){
+            if(S[p.first][p.second + 1] == '#'){
+                map[p.first][p.second + 1] = -1;
+            }
+            else{
+                map[p.first][p.second + 1] = d + 1;
+                q.push(make_pair(p.first,p.second + 1));
+            }
+        }
+
+        if(p.first + 1 < N && map[p.first + 1][p.second] == 0){
+            if(S[p.first + 1][p.second] == '#'){
+                map[p.first + 1][p.second] = -1;
+            }
+            else{
+                map[p.first + 1][p.second] = d + 1;
+                q.push(make_pair(p.first + 1,p.second));
+            }
+        }
+
+        q.pop();
+    }
+
+    if(map[ps[1].first][ps[1].second] == 0){
+        ANSWER(-1);
+        return;
+    }
+
+    int ans = INT64_MAX;
+
+    // h->v
+    int p1 = 
+
+
 }
 
 int main(){

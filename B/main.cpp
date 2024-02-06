@@ -69,8 +69,71 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N;
-    cin >> N;
+    u64 H,W,N;
+    cin >> H >> W >> N;
+
+    auto ans = INTI_VVI(H,W);
+    int direction = 0;
+    pair<int,int> c_pos = make_pair(0,0);
+    for(int i = 0; i < N; i ++){
+        if(ans[c_pos.first][c_pos.second] == 0){
+            ans[c_pos.first][c_pos.second] = 1;
+            switch (direction)
+            {
+            case 0:
+                direction = 1;
+                c_pos.second = c_pos.second + 1 >= W ? 0 : c_pos.second + 1;
+                break;
+            case 1:
+                direction = 2;
+                c_pos.first = c_pos.first + 1 >= H ? 0 :  c_pos.first + 1;
+                break;
+            case 2:
+                direction = 3;
+                c_pos.second = c_pos.second - 1 < 0 ? W - 1 :  c_pos.second - 1;
+                break;
+            case 3:
+                direction = 0;
+                c_pos.first = c_pos.first - 1 < 0 ? H - 1 :  c_pos.first - 1;
+                break;    
+            default:
+                break;
+            }
+
+        }
+        else{
+            ans[c_pos.first][c_pos.second] = 0;
+            switch (direction)
+            {
+            case 0:
+                direction = 3;
+                c_pos.second = c_pos.second - 1 < 0 ? W - 1 :  c_pos.second - 1;
+                break;
+            case 1:
+                direction = 0;
+                c_pos.first = c_pos.first - 1 < 0 ? H - 1 :  c_pos.first - 1;
+                break;
+            case 2:
+                direction = 1;
+                c_pos.second = c_pos.second + 1 >= W ? 0 : c_pos.second + 1;
+                break;
+            case 3:
+                direction = 2;
+                c_pos.first = c_pos.first + 1 >= H ? 0 :  c_pos.first + 1;
+                break;    
+            default:
+                break;
+            }
+        }
+    }
+
+    for(int i = 0; i < H; i ++){
+        for(int j = 0; j < W; j ++){
+            char a = ans[i][j] == 0 ? '.' : '#';
+            cout << a;
+        }
+        cout << endl;
+    }
 }
 
 int main(){

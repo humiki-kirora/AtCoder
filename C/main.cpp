@@ -71,6 +71,22 @@ void YESorNO(bool ans){
 void solve(){
     u64 N;
     cin >> N;
+
+    auto A = INTI_VI(N);
+    read_v(A);
+    auto cs = INTI_VU64(N + 1);
+    cs[0] = 0;
+
+    u64 init = 0;
+    for(int i = 0; i < N; i ++){
+        if(A[i] >= 0 || cs[i] >= abs(A[i])){
+            cs[i + 1] = cs[i] + A[i];
+        }
+        else{
+            cs[i + 1] = 0;
+        }
+    }
+    ANSWER(cs[N]);
 }
 
 int main(){
