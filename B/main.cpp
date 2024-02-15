@@ -69,8 +69,28 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N;
-    cin >> N;
+    u64 Q;
+    cin >> Q;
+
+    vector<int> A;
+    for(int i = 0; i < Q; i ++){
+        int c;
+        cin >> c;
+
+        if(c == 1){
+            int x;
+            cin >> x ;
+            A.push_back(x);
+        }
+        else{
+            int k ;
+            cin >> k;
+            auto itr = A.end();
+            itr -= k;
+            cout << *itr << endl;
+        }
+    }
+
 }
 
 int main(){

@@ -69,8 +69,16 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N;
-    cin >> N;
+    int A,B,D;
+    cin >> A >> B >> D;
+
+    int sum = A;
+    while(sum <= B){
+        cout << sum << " ";
+        sum += D;
+    }
+    cout << endl;
+
 }
 
 int main(){

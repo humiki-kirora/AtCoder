@@ -82,24 +82,57 @@ void search_max(map<int,vector<int>> & g,map<int,bool> & checks, int i,int & ans
 }
 
 void solve(){
-    int N;
-    cin >> N;
-    map<int,bool> check;
-    map<int,vector<int>> g;
-    for(int i = 0; i < N; i ++){
-        int a,b;
-        cin >> a >> b;
-        g[a].push_back(b);
-        g[b].push_back(a);
-        check[a] = true;
-        check[b] = true;
-        
-    }
-    check[1] = true;
+    int H,W;
+    cin >> H >> W;
+    auto S = INTI_VS(H);
+    auto T = INTI_VS(H);
+    read_v(S);
+    read_v(T);
+    vector<string> St(W,string(H,'a'));
+    vector<string> Tt(W,string(H,'a'));
 
-    int ans = 0;
-    search_max(g,check,1,ans);
-    ANSWER(ans);
+    for(int i = 0; i < H; i ++){
+        for(int j = 0; j < W; j ++){
+            St[j][i] = S[i][j];
+            Tt[j][i] = T[i][j];
+        }
+    }
+
+    map<string,int> Sm;
+    map<string,int> Tm;
+
+    for(int i = 0; i < W; i ++){
+        if(Sm.find(St[i]) == Sm.end()){
+            Sm[St[i]] = 1;
+        }
+        else{
+            Sm[St[i]] ++;
+        }
+
+        if(Tm.find(Tt[i]) == Tm.end()){
+            Tm[Tt[i]] = 1;
+        }
+        else{
+            Tm[Tt[i]] ++;
+        }
+    }
+
+    for(auto s : Sm){
+        if(Tm.find(s.first) == Tm.end()){
+            YESorNO(false);
+            return;
+        }
+
+        if(Tm[s.first] != s.second){
+            YESorNO(false);
+            return;
+        }
+    }
+
+    YESorNO(true);
+
+
+
 }
 
 int main(){

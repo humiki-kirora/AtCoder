@@ -68,9 +68,26 @@ void YESorNO(bool ans){
     else cout << "No" << endl;
 }
 
+u64 calc_ans(map<u64,u64> &answers, u64 x){
+    if (answers.find(x) != answers.end()){
+        return answers[x];
+    }
+    u64 x1 = x % 2 == 0 ? x / 2 : x / 2 + 1;
+    u64 x2 = x / 2;
+    u64 ans = calc_ans(answers,x1) + calc_ans(answers,x2) + x;
+    answers[x] = ans;
+    return ans;
+    
+}
+
 void solve(){
     u64 N;
     cin >> N;
+    map<u64,u64> answers;
+    answers[1] = 0;
+    answers[2] = 2;
+    u64 ans = calc_ans(answers,N);
+    ANSWER(ans);
 }
 
 int main(){
