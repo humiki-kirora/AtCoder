@@ -69,8 +69,45 @@ void YESorNO(bool ans){
 }
 
 void solve(){
-    u64 N;
-    cin >> N;
+    u64 N,W,H;
+    cin >> H >> W >> N;
+    string T;
+    cin >> T;
+    auto S = INTI_VS(H);
+    read_v(S);
+    map<char,pair<int,int>> m;
+    m['L'] = make_pair(0,-1);
+    m['R'] = make_pair(0,1);
+    m['U'] = make_pair(-1,0);
+    m['D'] = make_pair(1,0);
+
+    int ans = 0;
+    for(int h = 1; h < H - 1; h ++){
+        for(int w = 1; w < W - 1; w ++){
+            if(S[h][w] != '.') continue;
+            int c_pos_h = h;
+            int c_pos_w = w;
+            bool check = true;
+            for(int i = 0; i < N; i ++){
+                int n_pos_h = c_pos_h + m[T[i]].first;
+                int n_pos_w = c_pos_w + m[T[i]].second;
+                if(S[n_pos_h][n_pos_w] != '.'){
+                    check = false;
+                    break;
+                }
+                else{
+                    c_pos_h = n_pos_h;
+                    c_pos_w = n_pos_w;
+                }
+            }
+
+            if(check){
+                ans++;
+            } 
+        }
+    }
+
+    ANSWER(ans);
 }
 
 int main(){

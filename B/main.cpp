@@ -71,6 +71,24 @@ void YESorNO(bool ans){
 void solve(){
     u64 N;
     cin >> N;
+    auto A = INTI_VU64(N);
+    read_v(A);
+    vector<pair<u64,u64>> st(N);
+    for(u64 i = 0; i < N - 1; i ++){
+        u64 s,t;
+        cin >> s >> t;
+        st[i] = make_pair(s,t);
+    }
+    u64 ans =  *max_element(A.begin(),A.end());
+    for(u64 i = 0; i < N - 1; i ++){
+        u64 s = st[i].first;
+        u64 t = st[i].second;
+        u64 c = A[i] / s;
+        A[i] -= c * s;
+        A[i + 1] += c * t;
+    }
+    ANSWER(A.back());
+
 }
 
 int main(){

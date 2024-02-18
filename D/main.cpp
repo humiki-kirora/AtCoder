@@ -68,9 +68,44 @@ void YESorNO(bool ans){
     else cout << "No" << endl;
 }
 
+u64 gcd(u64 a,u64 b){
+    int mod = a % b;
+    if(mod == 0) return b;
+    else return gcd(b,mod);
+}
+
+u64 lcm(u64 a,u64 b){
+    return a / gcd(a,b) * b;
+} 
+
 void solve(){
-    u64 N;
-    cin >> N;
+    u64 N,M,K;
+    cin >> N >> M >> K;
+    u64 lcms = lcm(N,M);
+    u64 n_count = (lcms / N) - 1;
+    u64 m_count = (lcms / M) - 1;
+    u64 lcm_num = n_count + m_count;
+
+    u64 p = (K - 1) / lcm_num;
+    u64 start_v = p * lcms;
+    u64 current_count = p * lcm_num;
+    u64 ans = 0;
+    u64 n_i = 1;
+    u64 m_i = 1;
+
+    while(current_count < K){
+        if(start_v + N * n_i < start_v + M * m_i){
+            ans = start_v + N * n_i;
+            n_i ++;
+        }
+        else{
+            ans = start_v + M * m_i;
+            m_i ++;
+        }
+        current_count ++;
+    }
+
+    ANSWER(ans);
 }
 
 int main(){

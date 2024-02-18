@@ -84,22 +84,11 @@ void search_max(map<int,vector<int>> & g,map<int,bool> & checks, int i,int & ans
 void solve(){
     int N;
     cin >> N;
-    map<int,bool> check;
-    map<int,vector<int>> g;
-    for(int i = 0; i < N; i ++){
-        int a,b;
-        cin >> a >> b;
-        g[a].push_back(b);
-        g[b].push_back(a);
-        check[a] = true;
-        check[b] = true;
-        
-    }
-    check[1] = true;
+    auto A = INTI_VI(N);
+    read_v(A);
 
-    int ans = 0;
-    search_max(g,check,1,ans);
-    ANSWER(ans);
+    
+
 }
 
 int main(){

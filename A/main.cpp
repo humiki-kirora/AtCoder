@@ -71,6 +71,14 @@ void YESorNO(bool ans){
 void solve(){
     u64 N;
     cin >> N;
+
+    bool current = true;
+    for(int i = 0; i < 2 * N; i ++){
+        cout << current;
+        current = !current;
+    }
+    cout << 1 << endl;
+
 }
 
 int main(){
